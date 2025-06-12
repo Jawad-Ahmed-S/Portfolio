@@ -65,13 +65,14 @@ const ProjectCard = ({ project, index }: {
         <div className="relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-white/[0.2] bg-white dark:bg-black shadow-lg hover:shadow-xl transition-all duration-500">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 to-cyan-50/20 dark:from-blue-900/20 dark:to-cyan-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
           {project.imageUrl && (
+      <div className="w-full h-64 lg:h-80">
             <Image
               src={project.imageUrl} 
               alt={project.title}
-              height={20}
-              width={50}
-              className="w-full h-64 lg:h-80 object-cover transform group-hover:scale-105 transition-transform duration-700"
+              fill
+              className=" object-cover transform group-hover:scale-105 transition-transform duration-700"
             />
+      </div>
           )}
           <div className="absolute top-4 left-4 z-20">
             <span className="px-3 py-1 text-xs font-medium bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full">

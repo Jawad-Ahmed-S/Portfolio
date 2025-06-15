@@ -65,7 +65,7 @@ const ProjectCard = ({ project, index }: {
         <div className="relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-white/[0.2] bg-white dark:bg-black shadow-lg hover:shadow-xl transition-all duration-500">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 to-cyan-50/20 dark:from-blue-900/20 dark:to-cyan-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
           {project.imageUrl && (
-      <div className="w-full h-64 lg:h-80">
+      <div className="w-full h-64 lg:h-80 relative">
             <Image
               src={project.imageUrl} 
               alt={project.title}

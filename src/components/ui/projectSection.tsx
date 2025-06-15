@@ -5,7 +5,7 @@ import { type SanityDocument } from "next-sanity";
 import {motion} from 'framer-motion'
 import Image from 'next/image'
 import { fadeIn } from '@/app/variant';
-const PROJECTS_QUERY = `*[_type == "project"] | order(_createdAt desc) {
+const PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
   _id,
   title,
   description,

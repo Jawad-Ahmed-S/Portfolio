@@ -96,10 +96,10 @@ export function AboutMe() {
                 </span>
               </h3>
               <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed text-lg max-w-4xl">
-              I&aposm a web developer who enjoys creating everything from landing pages and portfolios to full ecommerce stores. 
+              I'm a web developer who enjoys creating everything from landing pages and portfolios to full ecommerce stores. 
               I work on both the frontend to make websites look great. I also work on programming languages like C++ and Python for learning core computing. 
               I also help others with coding assignments and love learning about how AI is changing the way we develop any software.
-              I&aposm always exploring new ideas and improving my skills through hands-on projects.
+              I'm always exploring new ideas and improving my skills through hands-on projects.
                 </p>
             </div>
           </motion.div>
@@ -122,7 +122,7 @@ export function AboutMe() {
                 </h3>
                 <div className="space-y-2">
                   <p className="text-lg font-medium text-purple-800 dark:text-purple-300">
-                    Bachelor&aposs in Computer Science
+                    Bachelor's in Computer Science
                   </p>
                   <p className="text-neutral-600 dark:text-neutral-400">
                     Currently pursuing my degree with a focus on core computing,
@@ -181,7 +181,7 @@ export function AboutMe() {
         >
           <div className="bg-gradient-to-r from-blue-900/20 to-cyan-900/20 dark:from-purple-900/30 dark:to-pink-900/30 p-8 rounded-2xl mx-auto shadow-lg  transition-shadow duration-300">
             <p className="text-lg italic text-neutral-700 dark:text-neutral-300 mb-2">
-               &quotThe best way to predict the future is to create it.
+                The best way to predict the future is to create it.
             </p>
             <p className="text-sm text-neutral-500 dark:text-neutral-500">
               This quote drives my passion for building innovative web solutions ✨

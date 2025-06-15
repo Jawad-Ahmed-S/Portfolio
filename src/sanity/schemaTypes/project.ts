@@ -33,6 +33,11 @@ export const projectType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'order',
+      type: 'number',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'image',
       type: 'image',
     }),

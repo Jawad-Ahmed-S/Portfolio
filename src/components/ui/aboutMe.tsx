@@ -96,10 +96,10 @@ export function AboutMe() {
                 </span>
               </h3>
               <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed text-lg max-w-4xl">
-              I'm a web developer who enjoys creating everything from landing pages and portfolios to full ecommerce stores. 
+              I&apos;m a web developer who enjoys creating everything from landing pages and portfolios to full ecommerce stores. 
               I work on both the frontend to make websites look great. I also work on programming languages like C++ and Python for learning core computing. 
               I also help others with coding assignments and love learning about how AI is changing the way we develop any software.
-              I'm always exploring new ideas and improving my skills through hands-on projects.
+              I&apos;m always exploring new ideas and improving my skills through hands-on projects.
                 </p>
             </div>
           </motion.div>
@@ -122,7 +122,7 @@ export function AboutMe() {
                 </h3>
                 <div className="space-y-2">
                   <p className="text-lg font-medium text-purple-800 dark:text-purple-300">
-                    Bachelor's in Computer Science
+                    Bachelor&apos;s in Computer Science
                   </p>
                   <p className="text-neutral-600 dark:text-neutral-400">
                     Currently pursuing my degree with a focus on core computing,

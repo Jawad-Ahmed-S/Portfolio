@@ -1,91 +1,53 @@
 "use client";
+
 import Link from "next/link";
-import {
-  Navbar,
-  NavBody,
-  NavItems,
-  MobileNav,
-  NavbarLogo,
-  NavbarButton,
-  MobileNavHeader,
-  MobileNavToggle,
-  MobileNavMenu,
-} from "./resizable-navbar";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { Outfit } from 'next/font/google';
 
-export function NavbarDemo() {
-  const navItems = [
-    {
-      name: "About Me",
-      link: "/#aboutme",
-    },
-    {
-      name: "Skills",
-      link: "/#skills",
-    },
-    {
-      name: "Projects",
-      link: "/#projects",
-    },
-  ];
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+});
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMounted, setMounted] = useState(false);
+export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => setMounted(true), []);
-  if (!isMounted) return null;
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <div className="relative flex-col w-full">
-      <Navbar>
-        {/* Desktop Navigation */}
-        <NavBody>
-          <NavbarLogo />
-          <NavItems items={navItems} />
-          <div className="flex items-center gap-4">
-            <NavbarButton href="/contactus" variant="secondary" className="bg-white/10 hover:bg-white/20 text-white">
-              Book a call
-            </NavbarButton>
-          </div>
-        </NavBody>
+    <nav className={`${outfit.className} w-full bg-[#FAFAFA] fixed top-0 left-0 z-50`}>
+      <div className="max-w-7xl font-sans mx-auto px-6 py-4 flex justify-between items-center">
+        {/* Logo */}
+        <Link href="/" className="text-2xl  font-bold text-[#FFC300] tracking-tight"><span className="text-[#1C1C1C] text-3xl">J</span>awad</Link>
 
-        {/* Mobile Navigation */}
-        <MobileNav>
-          <MobileNavHeader>
-            <NavbarLogo />
-            <MobileNavToggle
-              isOpen={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            />
-          </MobileNavHeader>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center tracking-wide space-x-6 text-sm">
+          <Link href="/#aboutme" className="text-[#1C1C1C] font-bold hover:text-[#FFC300] transition-colors duration-200">About Me</Link>
+          <Link href="/#skills" className="text-[#1C1C1C] font-bold hover:text-[#FFC300] transition-colors duration-200">Skills</Link>
+          <Link href="/#projects" className="text-[#1C1C1C] font-bold hover:text-[#FFC300] transition-colors duration-200">Projects</Link>
+          <Link href="/#services" className="text-[#1C1C1C] font-bold hover:text-[#FFC300] transition-colors duration-200">Services</Link>
+          <Link href="/contactus" className="text-[#1C1C1C] font-bold hover:text-[#FFC300] transition-colors duration-200">Contact</Link>
+        </div>
 
-          <MobileNavMenu
-            isOpen={isMobileMenuOpen}
-            onClose={() => setIsMobileMenuOpen(false)}
-          >
-            {navItems.map((item, idx) => (
-              <Link
-                key={`mobile-link-${idx}`}
-                href={item.link}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-neutral-600 dark:text-neutral-300"
-              >
-                <span className="block">{item.name}</span>
-              </Link>
-            ))}
-            <div className="flex w-full flex-col gap-4 mt-4">
-              <NavbarButton
-                href="/contactus"
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="secondary"
-                className="w-full bg-white/10 hover:bg-white/20 text-white"
-              >
-                Book a call
-              </NavbarButton>
-            </div>
-          </MobileNavMenu>
-        </MobileNav>
-      </Navbar>
-    </div>
+        {/* Mobile Menu Toggle */}
+        <div className="md:hidden flex items-center">
+          <button onClick={toggleMenu} aria-label="Toggle Menu">
+            {menuOpen ? <X size={28} className="text-[#1C1C1C]" /> : <Menu size={28} className="text-[#1C1C1C]" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="md:hidden bg-[#FAFAFA] flex flex-col items-end space-y-4 py-4 px-6 text-sm shadow-md">
+          <Link href="/#aboutme" className="text-[#1C1C1C] font-bold hover:text-[#FFC300] transition-colors duration-200" onClick={toggleMenu}>About Me</Link>
+          <Link href="/#skills" className="text-[#1C1C1C] font-bold hover:text-[#FFC300] transition-colors duration-200" onClick={toggleMenu}>Skills</Link>
+          <Link href="/#projects" className="text-[#1C1C1C] font-bold hover:text-[#FFC300] transition-colors duration-200" onClick={toggleMenu}>Projects</Link>
+          <Link href="/#services" className="text-[#1C1C1C] font-bold hover:text-[#FFC300] transition-colors duration-200" onClick={toggleMenu}>Services</Link>
+          <Link href="/contactus" className="text-[#1C1C1C] font-bold hover:text-[#FFC300] transition-colors duration-200" onClick={toggleMenu}>Contact</Link>
+        </div>
+      )}
+    </nav>
   );
 }

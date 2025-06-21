@@ -1,14 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { 
-  Facebook, 
-  Github, 
-  Linkedin, 
-  Mail, 
-  Home,
-  ExternalLink 
-} from 'lucide-react';
+import { Facebook, Github, Linkedin, Mail, Home, ExternalLink } from 'lucide-react';
 
 const Footer = () => {
   const socialLinks = [
@@ -16,53 +9,42 @@ const Footer = () => {
       name: 'Home',
       icon: Home,
       href: '#',
-      color: 'hover:text-blue-300'
     },
     {
       name: 'GitHub',
       icon: Github,
       href: 'https://github.com/Jawad-Ahmed-S',
-      color: 'hover:text-blue-300'
     },
     {
       name: 'LinkedIn',
       icon: Linkedin,
       href: 'https://www.linkedin.com/in/jawad-ahmed-s/',
-      color: 'hover:text-blue-400'
     },
     {
       name: 'Facebook',
       icon: Facebook,
       href: 'https://www.facebook.com/jawadahmed.personal',
-      color: 'hover:text-blue-400'
     },
     {
       name: 'Email',
       icon: Mail,
       href: 'mailto:jawadahmed.code@gmail.com',
-      color: 'hover:text-blue-300'
-    }
+    },
   ];
 
   return (
-    <footer className="bg-neutral-950 border-t border-neutral-800">
+    <footer className="bg-[#FAFAFA] border-t border-[#E0E0E0]">
       <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Main Footer Content */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
-          
           {/* Logo Section */}
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-neutral-700 to-neutral-800 rounded-sm overflow-hidden flex items-center justify-center">
-              {/* <span className="text-white font-bold text-sm">P</span> */}
-              <Image
-               src="/profile.png"
-               alt="logo"
-               width={40}
-               height={40}/>
+            <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center bg-[#F5F5F5]">
+              <Image src="/profile.png" alt="logo" width={40} height={40} />
             </div>
             <div>
-              <h3 className="text-white font-semibold text-lg">Jawad Ahmed</h3>
-              <p className="text-neutral-400 text-sm">Frontend Developer</p>
+              <h3 className="text-[#1C1C1C] font-semibold text-lg">Jawad Ahmed</h3>
+              <p className="text-[#333333] text-sm">Frontend Developer</p>
             </div>
           </div>
 
@@ -74,7 +56,7 @@ const Footer = () => {
                 <Link
                   key={social.name}
                   href={social.href}
-                  className={`p-2 rounded-sm bg-neutral-900 text-neutral-400 transition-all duration-200 ${social.color} hover:bg-neutral-800 group`}
+                  className="p-2 rounded-full bg-[#F5F5F5] text-[#333333] hover:bg-[#333333] hover:text-[#FFC300] transition-all duration-300 group"
                   aria-label={social.name}
                   target={social.href.startsWith('http') ? '_blank' : '_self'}
                   rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
@@ -87,15 +69,14 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-8 pt-6 border-t border-neutral-800 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
-          <p className="text-neutral-500 text-sm">
+        <div className="mt-8 pt-6 border-t border-[#E0E0E0] flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
+          <p className="text-[#333333] text-sm">
             © 2025 Jawad Ahmed. All rights reserved.
           </p>
-          <div className="flex items-center space-x-4 text-sm text-neutral-500">
-            
-            <a 
-              href="#projects" 
-              className="hover:text-neutral-300 transition-colors duration-200 flex items-center space-x-1"
+          <div className="flex items-center space-x-4 text-sm text-[#333333]">
+            <a
+              href="#projects"
+              className="flex items-center space-x-1 hover:text-[#FFC300] transition-colors duration-300"
             >
               <span>Projects</span>
               <ExternalLink size={12} />

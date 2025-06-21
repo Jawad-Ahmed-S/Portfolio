@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
-import { Calendar, Clock, Video, Phone, Mail, User, Send, CheckCircle, AlertCircle } from 'lucide-react'
-import emailjs from '@emailjs/browser'
+import React, { useState } from 'react';
+import { Calendar, Clock, Video, Phone, Mail, User, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 interface FormData {
-  name: string
-  email: string
-  phone?: string
-  message?: string
-  bookCall: boolean
-  preferredDate?: string
-  preferredTime?: string
-  callType: 'zoom' | 'phone' | 'teams'
+  name: string;
+  email: string;
+  phone?: string;
+  message?: string;
+  bookCall: boolean;
+  preferredDate?: string;
+  preferredTime?: string;
+  callType: 'zoom' | 'phone' | 'teams';
 }
 
 const ContactForm: React.FC = () => {
@@ -25,44 +25,40 @@ const ContactForm: React.FC = () => {
     preferredDate: '',
     preferredTime: '',
     callType: 'zoom'
-  })
-  
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  });
 
-  // EmailJS configuration from environment variables
-  const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
-  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID  
-  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Check if all required env vars are present
+  const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
   React.useEffect(() => {
     if (!serviceId || !templateId || !publicKey) {
-      console.error('EmailJS environment variables are missing!')
+      console.error('EmailJS environment variables are missing!');
     }
-  }, [serviceId,publicKey,templateId])
+  }, [serviceId, publicKey, templateId]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target
+    const { name, value, type } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setError(null)
-    
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+
     try {
-      // Check if environment variables are set
       if (!serviceId || !templateId || !publicKey) {
-        throw new Error('EmailJS configuration is missing. Please check your environment variables.')
+        throw new Error('EmailJS configuration is missing.');
       }
 
-      // Prepare email template parameters
       const templateParams = {
         name: formData.name,
         email: formData.email,
@@ -73,27 +69,14 @@ const ContactForm: React.FC = () => {
         preferred_date: formData.bookCall && formData.preferredDate ? formData.preferredDate : 'N/A',
         preferred_time: formData.bookCall && formData.preferredTime ? formData.preferredTime : 'N/A',
         submission_date: new Date().toLocaleString()
-      }
+      };
 
-      // Check if env vars are available
-      if (!serviceId || !templateId || !publicKey) {
-        throw new Error('EmailJS configuration is missing')
-      }
-
-      // Send email using EmailJS
-      const result = await emailjs.send(
-        serviceId,
-        templateId,
-        templateParams,
-        publicKey
-      )
+      const result = await emailjs.send(serviceId, templateId, templateParams, publicKey);
 
       if (result.status === 200) {
-        setIsSubmitted(true)
-        
-        // Reset form after 3 seconds
+        setIsSubmitted(true);
         setTimeout(() => {
-          setIsSubmitted(false)
+          setIsSubmitted(false);
           setFormData({
             name: '',
             email: '',
@@ -103,52 +86,45 @@ const ContactForm: React.FC = () => {
             preferredDate: '',
             preferredTime: '',
             callType: 'zoom'
-          })
-        }, 2000)
+          });
+        }, 2000);
       }
     } catch (error) {
-      console.error('EmailJS Error:', error)
-      setError('Failed to send message. Please try again.')
+      console.error('EmailJS Error:', error);
+      setError('Failed to send message. Please try again.');
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden">
-       
-        
-        <div className="relative backdrop-blur-xl bg-gray-900/80 border border-gray-700/50 rounded-3xl p-12 text-center max-w-md w-full shadow-2xl">
+      <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center p-4 relative overflow-hidden">
+        <div className="relative backdrop-blur-xl bg-[#333333]/80 border border-[#333333]/50 rounded-3xl p-12 text-center max-w-md w-full shadow-2xl">
           <div className="mb-6">
-            <CheckCircle className="w-16 h-16 text-green-400 mx-auto" />
+            <CheckCircle className="w-16 h-16 text-[#FFC300] mx-auto" />
           </div>
-          <h2 className="text-2xl font-bold text-white mb-4">Message Sent!</h2>
-          <p className="text-gray-300">Thank you for reaching out. We&aposll get back to you soon.</p>
+          <h2 className="text-2xl font-bold text-[#1C1C1C] mb-4">Message Sent!</h2>
+          <p className="text-[#333333]">Thank you for reaching out. We&apos;ll get back to you soon.</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
-    <div className="min-h-screen mt-20 bg-black flex items-center justify-center p-4 relative overflow-hidden">
-    
-
+    <div className="min-h-screen mt-20 bg-[#FAFAFA] flex items-center justify-center p-4 relative overflow-hidden">
       <div className="relative w-full max-w-lg">
-        {/* Main form container */}
-        <div className="backdrop-blur-xl bg-gray-900/80 border border-gray-700/50 rounded-3xl p-8 shadow-2xl hover:shadow-purple-500/10 transition-all duration-500">
-          {/* Header */}
+        <div className="backdrop-blur-xl bg-white border border-[#E0E0E0] rounded-[5px] p-8 shadow-2xl hover:shadow-[#FFC300]/20 transition-all duration-500">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-300 bg-clip-text text-transparent mb-2">
+            <h1 className="text-3xl font-bold text-[#1C1C1C] mb-2">
               Contact Us
             </h1>
-            <p className="text-gray-400">Let&aposs connect and discuss your project</p>
+            <p className="text-[#333333]">Let&apos;s connect and discuss your project</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name Field */}
             <div className="relative group">
-              <User className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 transition-colors group-focus-within:text-purple-400" />
+              <User className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#333333] w-5 h-5 transition-colors group-focus-within:text-[#FFC300]" />
               <input
                 type="text"
                 name="name"
@@ -156,13 +132,12 @@ const ContactForm: React.FC = () => {
                 onChange={handleInputChange}
                 placeholder="Your Name"
                 required
-                className="w-full pl-12 pr-4 py-4 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all duration-300 hover:bg-gray-800/70"
+                className="w-full pl-12 pr-4 py-4 bg-white border border-[#E0E0E0] rounded-[8px] text-[#1C1C1C] placeholder-[#333333] focus:outline-none focus:ring-2 focus:ring-[#FFC300] focus:border-transparent transition-all duration-300 hover:bg-[#F5F5F5]"
               />
             </div>
 
-            {/* Email Field */}
             <div className="relative group">
-              <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 transition-colors group-focus-within:text-purple-400" />
+              <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#333333] w-5 h-5 transition-colors group-focus-within:text-[#FFC300]" />
               <input
                 type="email"
                 name="email"
@@ -170,24 +145,22 @@ const ContactForm: React.FC = () => {
                 onChange={handleInputChange}
                 placeholder="your.email@example.com"
                 required
-                className="w-full pl-12 pr-4 py-4 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all duration-300 hover:bg-gray-800/70"
+                className="w-full pl-12 pr-4 py-4 bg-white border border-[#E0E0E0] rounded-[5px] text-[#1C1C1C] placeholder-[#333333] focus:outline-none focus:ring-2 focus:ring-[#FFC300] focus:border-transparent transition-all duration-300 hover:bg-[#F5F5F5]"
               />
             </div>
 
-            {/* Phone Field (Optional) */}
             <div className="relative group">
-              <Phone className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 transition-colors group-focus-within:text-purple-400" />
+              <Phone className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#333333] w-5 h-5 transition-colors group-focus-within:text-[#FFC300]" />
               <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
                 placeholder="Phone Number (Optional)"
-                className="w-full pl-12 pr-4 py-4 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all duration-300 hover:bg-gray-800/70"
+                className="w-full pl-12 pr-4 py-4 bg-white border border-[#E0E0E0] rounded-[5px] text-[#1C1C1C] placeholder-[#333333] focus:outline-none focus:ring-2 focus:ring-[#FFC300] focus:border-transparent transition-all duration-300 hover:bg-[#F5F5F5]"
               />
             </div>
 
-            {/* Message Field */}
             <div className="relative">
               <textarea
                 name="message"
@@ -195,37 +168,36 @@ const ContactForm: React.FC = () => {
                 onChange={handleInputChange}
                 placeholder="Tell us about your project..."
                 rows={4}
-                className="w-full p-4 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all duration-300 hover:bg-gray-800/70 resize-none"
+                className="w-full p-4 bg-white border border-[#E0E0E0] rounded-[5px] text-[#1C1C1C] placeholder-[#333333] focus:outline-none focus:ring-2 focus:ring-[#FFC300] focus:border-transparent transition-all duration-300 hover:bg-[#F5F5F5] resize-none"
               />
             </div>
 
-            {/* Book a Call Section */}
-            <div className="border-t border-gray-700/50 pt-6">
+            <div className="border-t border-[#E0E0E0] pt-6">
               <div className="flex items-center space-x-3 mb-4">
                 <input
-                  type="checkbox"
-                  name="bookCall"
-                  id="bookCall"
-                  checked={formData.bookCall}
-                  onChange={handleInputChange}
-                  className="w-5 h-5 text-purple-500 bg-gray-800 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
-                />
-                <label htmlFor="bookCall" className="text-white font-medium flex items-center">
-                  <Video className="w-5 h-5 mr-2 text-purple-400" />
+                    type="checkbox"
+                    name="bookCall"
+                    id="bookCall"
+                    checked={formData.bookCall}
+                    onChange={handleInputChange}
+                    className="w-5 h-5 bg-white border-2 border-[#FFC300] rounded-[6px] focus:ring-[#FFC300] focus:ring-2 checked:bg-white checked:text-[#FFC300]"
+                  />
+
+                <label htmlFor="bookCall" className="text-[#1C1C1C] font-medium flex items-center">
+                  <Video className="w-5 h-5 mr-2 text-[#FFC300]" />
                   Book a Call
                 </label>
               </div>
 
               {formData.bookCall && (
                 <div className="space-y-4 ml-8 animate-in slide-in-from-top-4 duration-300">
-                  {/* Call Type */}
                   <div>
-                    <label className="block text-gray-300 text-sm mb-2">Preferred Platform</label>
+                    <label className="block text-[#333333] text-sm mb-2">Preferred Platform</label>
                     <select
                       name="callType"
                       value={formData.callType}
                       onChange={handleInputChange}
-                      className="w-full p-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                      className="w-full p-3 bg-white border border-[#E0E0E0] rounded-[5px] text-[#1C1C1C] focus:outline-none focus:ring-2 focus:ring-[#FFC300]"
                     >
                       <option value="zoom">Zoom Meeting</option>
                       <option value="teams">Microsoft Teams</option>
@@ -233,26 +205,25 @@ const ContactForm: React.FC = () => {
                     </select>
                   </div>
 
-                  {/* Date and Time */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="relative group">
-                      <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#333333] w-4 h-4" />
                       <input
                         type="date"
                         name="preferredDate"
                         value={formData.preferredDate}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-3 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        className="w-full pl-10 pr-3 py-3 bg-white border border-[#E0E0E0] rounded-[5px] text-[#1C1C1C] focus:outline-none focus:ring-2 focus:ring-[#FFC300]"
                       />
                     </div>
                     <div className="relative group">
-                      <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#333333] w-4 h-4" />
                       <input
                         type="time"
                         name="preferredTime"
                         value={formData.preferredTime}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-3 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        className="w-full pl-10 pr-3 py-3 bg-white border border-[#E0E0E0] rounded-[5px] text-[#1C1C1C] focus:outline-none focus:ring-2 focus:ring-[#FFC300]"
                       />
                     </div>
                   </div>
@@ -260,24 +231,21 @@ const ContactForm: React.FC = () => {
               )}
             </div>
 
-            {/* Error Message */}
             {error && (
-              <div className="flex items-center space-x-2 p-4 bg-red-900/50 border border-red-600/50 rounded-xl text-red-300 animate-in slide-in-from-top-4 duration-300">
+              <div className="flex items-center space-x-2 p-4 bg-red-100 border border-red-300 rounded-[5px] text-red-700 animate-in slide-in-from-top-4 duration-300">
                 <AlertCircle className="w-5 h-5 flex-shrink-0" />
                 <span className="text-sm">{error}</span>
               </div>
             )}
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 px-6 font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center space-x-2 group"
+              className="w-full py-4 px-6 font-semibold bg-[#FFC300] hover:bg-[#e6b200] text-[#1C1C1C] rounded-[5px] font-medium transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 group"
             >
-            
               {isSubmitting ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-5 h-5 border-2 border-[#1C1C1C] border-t-transparent rounded-full animate-spin"></div>
                   <span>Sending...</span>
                 </>
               ) : (
@@ -291,7 +259,7 @@ const ContactForm: React.FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ContactForm
+export default ContactForm;

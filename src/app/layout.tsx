@@ -1,5 +1,6 @@
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
+import Head from "next/head";
 
 export default function RootLayout({
   children,
@@ -8,9 +9,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
+      <Head>
+        <link rel="icon" href="/profile.png" type="image/png" />
+      </Head>
       <body suppressHydrationWarning={true}>
         <ThemeProvider attribute="class" defaultTheme="dark">
-        {children}
+          {children}
         </ThemeProvider>
       </body>
     </html>

@@ -4,8 +4,8 @@ import "./globals.css";
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'My Next App',
-  description: 'A Next.js project with custom favicon',
+  title: 'Jawad Ahmed - Portfolio',
+  description: 'Portfolio made to showcase my work',
   icons: {
     icon: '/blobprofile.png', 
   },

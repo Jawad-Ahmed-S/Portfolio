@@ -1,7 +1,15 @@
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
-import Head from "next/head";
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'My Next App',
+  description: 'A Next.js project with custom favicon',
+  icons: {
+    icon: '/blobprofile.png', 
+  },
+}
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -9,9 +17,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <Head>
-        <link rel="icon" href="/profile.png" type="image/png" />
-      </Head>
       <body suppressHydrationWarning={true}>
         <ThemeProvider attribute="class" defaultTheme="dark">
           {children}
